@@ -1,7 +1,11 @@
-1. KiK.Dawn config 2023/10/12
+1. KiK.Dawn config 2023/10/13
 2. !!! Please select [Viktor] Evade in Configer and select the [old] engine !!!!
-3. Modified some dodge paths to make dodging look more humanized
-4. Optimize FPS after writing configurations
-5. Fix some bugs
-6. You can turn on Alexis Awareness to get the skill time display
+3. orb optimization Fixed orb lag issue
+4. Fixed the issue that when encountering control skills, the FPS will decrease
+5. Fixed dodging blocked skills
+6. Improved the speed of character dodging to make it more user friendly
+7. Improved dodge level of some skills
+8. Closed some meaningless skill dodges
+9. Improved skill dodging for some champions
+10. You can turn on Alexis Awareness to get the skill time display
 7. @Discord5171 Feedback Bug
