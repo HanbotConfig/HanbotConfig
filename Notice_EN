@@ -1,10 +1,14 @@
-1. KiK.Dawn config 2023/10/17
-2. orb optimization
-3. Improved avoidance width to look more user-friendly 
+1. KiK.Dawn config 2023/10/21
+2. New orb activated
+3. Improved dodge width
 4. Improved dodge levels for some skills
-5. Turn off some meaningless skill dodges
+5. Disable some meaningless skill dodges
 6. Improved skill dodge for some champions
-7. ! ! ! This is an almost perfect update, a large number of dodge 
+7. Fixed dodging skills that are very far away
+8. Fixed dodge jerks
+7. HanBot caching tool will be enabled by default, 
+   if you are loading configuration for the first time, please replace Evade with Victor Evade, 
+   now you must manually choose to load evade2.0 or else Victor Evade will report an error! 
 8. You can turn on Alexis Awareness to get the skill time display
 9. Regarding evade3.0, it still has many bugs. I will not make the configuration of evade3.0 for the time being
-10. @Discord5171 Feedback Bug
+10. Discord @ Dawn5171 Feedback Bug
