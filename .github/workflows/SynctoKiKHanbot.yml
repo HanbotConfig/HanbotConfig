@@ -32,7 +32,7 @@ jobs:
       # 推送代码到 KiKHanbot 仓库的 HanbotConfig 文件夹
       - name: Push to KiKHanbot Repository's HanbotConfig Folder
         run: |
-          git clone https://github.com/WizisCool/KiKHanbot.git tmpKiKHanbot
+          git clone https://${{ secrets.PUSH_TO_KIKHANBOT }}@github.com/WizisCool/KiKHanbot.git tmpKiKHanbot
           rsync -av --progress . tmpKiKHanbot/HanbotConfig/ --exclude tmpKiKHanbot/
           cd tmpKiKHanbot
           git config user.name "GitHub Actions"
