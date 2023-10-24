@@ -5,7 +5,7 @@ on:
     branches:
       - main
   workflow_dispatch:
-  
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -15,22 +15,26 @@ jobs:
       - name: Checkout Source Repo
         uses: actions/checkout@v2
 
-      # 克隆目标仓库到一个临时文件夹（这里我们使用了 ./tmpKiKHanbot，所以它会在当前工作目录下）
+      # 设置Git凭据
+      - name: Set Git Credentials
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git config --global credential.helper '!echo url=https://$0; echo username=${{ secrets.REPOKEY }} | sed s/@/%40/; echo password='
+
+      # 克隆目标仓库到一个临时文件夹
       - name: Clone Target Repo to Temp Directory
-        run: git clone https://${{ secrets.REPOKEY }}@github.com/WizisCool/KiKHanbot.git ./tmpKiKHanbot
+        run: git clone https://github.com/WizisCool/KiKHanbot.git ./tmpKiKHanbot
 
       # 复制文件到目标仓库的指定文件夹，同时排除不需要的文件和文件夹
       - name: Rsync Files
         run: |
           rsync -av --progress --exclude '.github/' --exclude 'Readme.md' --exclude '.git/' --exclude 'tmpKiKHanbot/' ./ tmpKiKHanbot/HanbotConfig/
-          # Note: The trailing slashes on the source and destination paths are important.
 
       # 提交和推送更改到目标仓库
       - name: Commit and Push
         run: |
           cd tmpKiKHanbot
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
           git add .
           # 检查是否有任何更改
           if [ -n "$(git status --porcelain)" ]; then
