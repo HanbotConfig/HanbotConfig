@@ -1,44 +1,40 @@
-name: Sync to KiKHanbot
+name: Sync Files to KiKHanbot
 
-on: 
+on:
   push:
-  workflow_dispatch:
+    branches:
+      - master
 
 jobs:
-  sync_to_kikhanbot:
+  sync:
     runs-on: ubuntu-latest
 
     steps:
-      # 使用 Turnstyle 确保在同一时间只有一个此工作流实例在执行
-      - name: Wait for other instances of this workflow
-        uses: softprops/turnstyle@v1
-        with:
-          poll-interval-seconds: 10
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-      # 检出当前的代码
-      - name: Checkout HanbotConfig Code
+      # 检出当前仓库的代码
+      - name: Checkout Source Repo
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # 获取完整的 Git 历史
 
-      # 配置 Git 信息
-      - name: Set Git Config
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+      # 克隆目标仓库到一个临时文件夹
+      - name: Clone Target Repo
+        run: git clone https://${{ secrets.PUSH_TO_KIKHANBOT }}@github.com/WizisCool/KiKHanbot.git tmpKiKHanbot
 
-      # 推送代码到 KiKHanbot 仓库的 HanbotConfig 文件夹
-      - name: Push to KiKHanbot Repository's HanbotConfig Folder
+      # 复制文件到目标仓库的指定文件夹，同时排除不需要的文件和文件夹
+      - name: Rsync Files
         run: |
-          git clone https://${{ secrets.PUSH_TO_KIKHANBOT }}@github.com/WizisCool/KiKHanbot.git tmpKiKHanbot
-          rsync -av --progress . tmpKiKHanbot/HanbotConfig/ --exclude tmpKiKHanbot/
+          rsync -av --progress --exclude '.github/' --exclude 'Readme.md' ./ tmpKiKHanbot/HanbotConfig/
+          # Note: The trailing slashes on the source and destination paths are important.
+
+      # 提交和推送更改到目标仓库
+      - name: Commit and Push
+        run: |
           cd tmpKiKHanbot
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add HanbotConfig/
-          git commit -m "Sync changes from HanbotConfig repository"
-          git push origin HEAD:master
-        env:
-          GITHUB_TOKEN: ${{ secrets.PUSH_TO_KIKHANBOT }} 
+          git add .
+          # 检查是否有任何更改
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Sync changes from HanbotConfig repository"
+            git push origin HEAD:master
+          else
+            echo "No changes to commit"
+          fi
