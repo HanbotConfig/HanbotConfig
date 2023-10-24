@@ -15,14 +15,14 @@ jobs:
       - name: Checkout Source Repo
         uses: actions/checkout@v2
 
-      # 克隆目标仓库到一个临时文件夹
-      - name: Clone Target Repo
-        run: git clone https://${{ secrets.PUSH_TO_KIKHANBOT }}@github.com/WizisCool/KiKHanbot.git tmpKiKHanbot
+      # 克隆目标仓库到一个临时文件夹（这里我们使用了 ./tmpKiKHanbot，所以它会在当前工作目录下）
+      - name: Clone Target Repo to Temp Directory
+        run: git clone https://${{ secrets.REPOKEY }}@github.com/WizisCool/KiKHanbot.git ./tmpKiKHanbot
 
       # 复制文件到目标仓库的指定文件夹，同时排除不需要的文件和文件夹
       - name: Rsync Files
         run: |
-          rsync -av --progress --exclude '.github/' --exclude 'Readme.md' --exclude '.git/' ./ tmpKiKHanbot/HanbotConfig/
+          rsync -av --progress --exclude '.github/' --exclude 'Readme.md' --exclude '.git/' --exclude 'tmpKiKHanbot/' ./ tmpKiKHanbot/HanbotConfig/
           # Note: The trailing slashes on the source and destination paths are important.
 
       # 提交和推送更改到目标仓库
