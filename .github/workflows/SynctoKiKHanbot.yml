@@ -1,4 +1,4 @@
-name: Sync to KiKHanbot Repository's HanbotConfig Folder
+name: Sync to KiKHanbot
 
 on: 
   push:
@@ -35,6 +35,8 @@ jobs:
           git clone https://github.com/WizisCool/KiKHanbot.git tmpKiKHanbot
           rsync -av --progress . tmpKiKHanbot/HanbotConfig/ --exclude tmpKiKHanbot/
           cd tmpKiKHanbot
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
           git add HanbotConfig/
           git commit -m "Sync changes from HanbotConfig repository"
           git push origin HEAD:master
