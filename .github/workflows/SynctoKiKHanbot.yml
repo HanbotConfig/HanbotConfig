@@ -17,7 +17,7 @@ jobs:
 
       # 克隆目标仓库到一个临时文件夹
       - name: Clone Target Repo to Temp Directory
-        run: git clone https://${{ secrets.REPOKEY }}@github.com/WizisCool/KiKHanbot.git /tmp/tmpKiKHanbot
+        run: git clone https://${{ secrets.PUSH_TO_KIKHANBOT }}@github.com/WizisCool/KiKHanbot.git /tmp/tmpKiKHanbot
 
       # 复制文件到目标仓库的指定文件夹，同时排除不需要的文件和文件夹
       - name: Rsync Files
