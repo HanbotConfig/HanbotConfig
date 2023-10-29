@@ -1,13 +1,11 @@
-1. KiK.Dawn config 2023/10/24
-2. Restarted the old orb, apparently the old one was better
-3. Improved skill evade width
-4. Improved evade lag
-5. Fixed some dodge jerks
-6. Fixed dodging missing kills
-7. Improved laggy dodging for multiple skills
-8. HanBot caching tool will be enabled by default, 
+1. KiK.Dawn config 2023/10/29
+2. Tweak some parameters, fix some bugs
+3. Evade only dangerous skills (control skills)
+4. Victor old evade and evade3.0 are already included in the config, it's up to you which one you want to use
+5. You can turn on Alexis Awareness to get the skill time display
+6. HanBot caching tool will be enabled by default, 
    if you are loading configuration for the first time, please replace Evade with Victor Evade, 
    now you must manually choose to load evade2.0 or else Victor Evade will report an error! 
-9. You can turn on Alexis Awareness to get the skill time display
-10. Regarding evade3.0, it still has many bugs. I will not make the configuration of evade3.0 for the time being
-11. Discord @ Dawn5171 Feedback Bug
+7. You can turn on Alexis Awareness to get the skill time display
+8. Regarding evade3.0, it still has many bugs. I will not make the configuration of evade3.0 for the time being
+9. Discord @ Dawn5171 Feedback Bug
